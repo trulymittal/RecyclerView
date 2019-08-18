@@ -4,18 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     RecyclerView recyclerView;
     RecyclerAdapter recyclerAdapter;
 
     List<String> moviesList;
+
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerAdapter = new RecyclerAdapter(moviesList);
-
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         recyclerView.setAdapter(recyclerAdapter);
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-
 
         moviesList.add("Iron Man");
         moviesList.add("The Incredible Hulk");
@@ -58,5 +61,23 @@ public class MainActivity extends AppCompatActivity {
         moviesList.add("Captain Marvel");
         moviesList.add("Avengers: Endgame");
         moviesList.add("Spider-Man: Far From Home");
+
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                moviesList.add("Black Widow (2020)");
+                moviesList.add("The Eternals (2020)");
+                moviesList.add("Shang-Chi and the Legend of the Ten Rings (2021)");
+                moviesList.add("Doctor Strange in the Multiverse of Madness (2021)");
+                moviesList.add("Thor: Love and Thunder (2021)");
+
+                recyclerAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
     }
+
 }
