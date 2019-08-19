@@ -1,7 +1,5 @@
 package com.example.recyclerview;
 
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +16,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private static final String TAG = "RecyclerAdapter";
     List<String> moviesList;
+    private RecyclerViewClickInterface recyclerViewClickInterface;
 
-    public RecyclerAdapter(List<String> moviesList) {
+    public RecyclerAdapter(List<String> moviesList, RecyclerViewClickInterface recyclerViewClickInterface) {
         this.moviesList = moviesList;
+        this.recyclerViewClickInterface = recyclerViewClickInterface;
     }
 
     @NonNull
@@ -43,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return moviesList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
         TextView textView, rowCountTextView;
@@ -55,23 +55,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             textView = itemView.findViewById(R.id.textView);
             rowCountTextView = itemView.findViewById(R.id.rowCountTextView);
 
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    recyclerViewClickInterface.onItemClick(getAdapterPosition());
+                }
+            });
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    moviesList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
+//                    moviesList.remove(getAdapterPosition());
+//                    notifyItemRemoved(getAdapterPosition());
+
+                    recyclerViewClickInterface.onLongItemClick(getAdapterPosition());
+
                     return true;
                 }
             });
 
         }
 
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(view.getContext(), moviesList.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-        }
     }
 
 }

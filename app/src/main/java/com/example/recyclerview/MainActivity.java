@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewClickInterface{
 
     private static final String TAG = "MainActivity";
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         moviesList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerAdapter = new RecyclerAdapter(moviesList);
+        recyclerAdapter = new RecyclerAdapter(moviesList, this);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recyclerAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -80,4 +80,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onItemClick(int position) {
+//        Toast.makeText(this, moviesList.get(position), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, NewActivity.class);
+        intent.putExtra("MOVIE_NAME", moviesList.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLongItemClick(int position) {
+        moviesList.remove(position);
+        recyclerAdapter.notifyItemRemoved(position);
+    }
 }
