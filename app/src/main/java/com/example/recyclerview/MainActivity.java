@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                     .addSwipeLeftActionIcon(R.drawable.ic_delete_black_24dp)
                     .addSwipeRightBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark))
                     .addSwipeRightActionIcon(R.drawable.ic_archive_black_24dp)
+                    .setActionIconTint(ContextCompat.getColor(recyclerView.getContext(), android.R.color.white))
                     .create()
                     .decorate();
 
