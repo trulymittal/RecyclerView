@@ -2,13 +2,11 @@ package com.example.recyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,19 +75,20 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             }
         });
 
-
     }
 
+
+
+//    These are the interface Methods from our custom RecyclerViewClickInterface
     @Override
     public void onItemClick(int position) {
-//        Toast.makeText(this, moviesList.get(position), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, NewActivity.class);
         intent.putExtra("MOVIE_NAME", moviesList.get(position));
         startActivity(intent);
     }
 
     @Override
-    public void onLongItemClick(int position) {
+    public void onLongItemClick(final int position) {
         moviesList.remove(position);
         recyclerAdapter.notifyItemRemoved(position);
     }
