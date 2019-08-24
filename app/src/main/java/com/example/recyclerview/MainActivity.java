@@ -23,18 +23,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         moviesList = new ArrayList<>();
-
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerAdapter = new RecyclerAdapter(moviesList);
-
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        recyclerView.setAdapter(recyclerAdapter);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
-
-
         moviesList.add("Iron Man");
         moviesList.add("The Incredible Hulk");
         moviesList.add("Iron Man 2");
@@ -58,5 +46,16 @@ public class MainActivity extends AppCompatActivity {
         moviesList.add("Captain Marvel");
         moviesList.add("Avengers: Endgame");
         moviesList.add("Spider-Man: Far From Home");
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerAdapter = new RecyclerAdapter(moviesList);
+
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(recyclerAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
     }
 }

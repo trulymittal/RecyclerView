@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter {
 
     private static final String TAG = "RecyclerAdapter";
     List<String> moviesList;
@@ -23,19 +23,58 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.moviesList = moviesList;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+//        if (position % 2 == 0) {
+//            return 0;
+//        }
+//        return 1;
+
+        if (moviesList.get(position).toLowerCase().contains("avengers")) {
+            return 0;
+        }
+        return 1;
+    }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.row_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        View view;
+
+        switch (viewType) {
+            case 0:
+                view = layoutInflater.inflate(R.layout.row_item, parent, false);
+                return new ViewHolderOne(view);
+            case 1:
+                view = layoutInflater.inflate(R.layout.another_row_item, parent, false);
+                return new ViewHolderTwo(view);
+        }
+
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.rowCountTextView.setText(String.valueOf(position));
-        holder.textView.setText(moviesList.get(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+//        if (position % 2 == 0) {
+//            ViewHolderOne viewHolderOne = (ViewHolderOne) holder;
+//            viewHolderOne.textView.setText(moviesList.get(position));
+//            viewHolderOne.rowCountTextView.setText(String.valueOf(position));
+//        } else {
+//            ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
+//            viewHolderTwo.textView.setText(moviesList.get(position));
+//        }
+
+        if (moviesList.get(position).toLowerCase().contains("avengers")) {
+            ViewHolderOne viewHolderOne = (ViewHolderOne) holder;
+            viewHolderOne.textView.setText(moviesList.get(position));
+            viewHolderOne.rowCountTextView.setText(String.valueOf(position));
+        }else {
+            ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
+            viewHolderTwo.textView.setText(moviesList.get(position));
+        }
     }
 
     @Override
@@ -43,34 +82,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return moviesList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolderOne extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
         TextView textView, rowCountTextView;
-
-        public ViewHolder(@NonNull View itemView) {
+        ImageView imageView;
+        public ViewHolderOne(@NonNull View itemView) {
             super(itemView);
-
-            imageView = itemView.findViewById(R.id.imageView);
             textView = itemView.findViewById(R.id.textView);
             rowCountTextView = itemView.findViewById(R.id.rowCountTextView);
-
-            itemView.setOnClickListener(this);
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    moviesList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                    return true;
-                }
-            });
+            imageView = itemView.findViewById(R.id.imageView);
 
         }
+    }
 
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(view.getContext(), moviesList.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+    class ViewHolderTwo extends RecyclerView.ViewHolder {
+
+        TextView textView;
+        public ViewHolderTwo(@NonNull View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.textView);
         }
     }
 }
