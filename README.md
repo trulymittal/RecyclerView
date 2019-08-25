@@ -10,6 +10,7 @@ Just select the from the branch to fetch the associated code:
 4. swipe_gestures: Swiping Left|Right on row items to delete/archive/etc
 5. drag_and_reorder : Draging a row item to another place inside recyclerview
 6. search_filter_recycler: Filtering recyclerview using the SearchView widget
+7. multi_viewtype: Multiple views for different row items in recycler view
 
 
 ### You can watch my videos on youtube for a detailed explanation of the same
@@ -20,6 +21,7 @@ Just select the from the branch to fetch the associated code:
 4. Swipe Left|Right row items: https://youtu.be/rcSNkSJ624U
 5. Drag and reorder items: https://youtu.be/H9D_HoOeKWM
 6. Filter using SearchView: https://youtu.be/CTvzoVtKoJ8
+7. Multiple Views (getItemType()): ..........
 
 ## Authors
 
