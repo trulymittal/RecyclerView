@@ -21,7 +21,7 @@ Just select the from the branch to fetch the associated code:
 4. Swipe Left|Right row items: https://youtu.be/rcSNkSJ624U
 5. Drag and reorder items: https://youtu.be/H9D_HoOeKWM
 6. Filter using SearchView: https://youtu.be/CTvzoVtKoJ8
-7. Multiple Views (getItemType()): ..........
+7. Multiple Views (getItemType()): https://youtu.be/VtnLpHUu2U0
 
 ## Authors
 
