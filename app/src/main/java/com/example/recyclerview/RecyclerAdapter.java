@@ -43,16 +43,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view;
 
-        switch (viewType) {
-            case 0:
-                view = layoutInflater.inflate(R.layout.row_item, parent, false);
-                return new ViewHolderOne(view);
-            case 1:
-                view = layoutInflater.inflate(R.layout.another_row_item, parent, false);
-                return new ViewHolderTwo(view);
+        if (viewType == 0) {
+            view = layoutInflater.inflate(R.layout.row_item, parent, false);
+            return new ViewHolderOne(view);
         }
 
-        return null;
+        view = layoutInflater.inflate(R.layout.another_row_item, parent, false);
+        return new ViewHolderTwo(view);
     }
 
     @Override
